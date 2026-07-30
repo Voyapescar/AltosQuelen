@@ -8,13 +8,21 @@ const navLinks = [
 ];
 ---
 
-<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-concrete-950/40 backdrop-blur-md border-b border-transparent">
   <div class="container-site">
     <nav class="flex items-center justify-between h-28" aria-label="Navegación principal">
 
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-3 group" aria-label="Inicio — Altos de Quelén">
-        <img src="/images/LogoQuelen.png" alt="Logo Quelen" class="h-24 w-auto object-contain scale-110 origin-left" />
+      <a href="/" class="relative z-10 block group" aria-label="Inicio — Altos de Quelén">
+        <img
+          src="/images/LogoQuelen.png"
+          alt="Logo Quelen"
+          class="h-24 w-auto object-contain origin-left
+                 transition-all duration-500 ease-out
+                 group-hover:scale-[1.03]
+                 group-hover:drop-shadow-[0_0_12px_rgba(212,175,55,0.3)]
+                 group-active:scale-[0.98]"
+        />
       </a>
 
       <!-- Nav Links (desktop) -->
@@ -86,22 +94,32 @@ const navLinks = [
 </header>
 
 <script>
+  import { gsap } from 'gsap';
+
   const navbar  = document.getElementById('navbar')!;
   const toggle  = document.getElementById('nav-toggle')!;
   const menu    = document.getElementById('mobile-menu')!;
   let   isOpen  = false;
 
+  /* ── Navbar entrance ── */
+  gsap.fromTo(navbar,
+    { y: -30, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+  );
+
   /* ── Scroll glass effect ── */
   const updateNavbar = () => {
     if (window.scrollY > 60) {
+      navbar.classList.remove('bg-concrete-950/40', 'backdrop-blur-md', 'border-transparent');
       navbar.classList.add(
-        'backdrop-blur-xl', 'bg-concrete-950/80',
-        'border-b', 'border-bronze-500/10', 'shadow-lg'
+        'backdrop-blur-xl', 'bg-concrete-950/90',
+        'border-bronze-500/10', 'shadow-lg'
       );
     } else {
+      navbar.classList.add('bg-concrete-950/40', 'backdrop-blur-md', 'border-transparent');
       navbar.classList.remove(
-        'backdrop-blur-xl', 'bg-concrete-950/80',
-        'border-b', 'border-bronze-500/10', 'shadow-lg'
+        'backdrop-blur-xl', 'bg-concrete-950/90',
+        'border-bronze-500/10', 'shadow-lg'
       );
     }
   };

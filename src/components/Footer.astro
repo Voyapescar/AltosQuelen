@@ -130,3 +130,37 @@ const legalLinks = [
 
   </div>
 </footer>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── Footer columns stagger ── */
+  const footerCols = document.querySelectorAll('#footer .grid > div');
+  if (footerCols.length) {
+    gsap.fromTo(footerCols,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0,
+        stagger: 0.15,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '#footer', start: 'top 88%' },
+      }
+    );
+  }
+
+  /* ── Bottom bar fade ── */
+  const bottomBar = document.querySelector('#footer .flex.flex-col.sm\\:flex-row');
+  if (bottomBar) {
+    gsap.fromTo(bottomBar,
+      { opacity: 0 },
+      {
+        opacity: 1, duration: 1, ease: 'power2.out',
+        scrollTrigger: { trigger: bottomBar, start: 'top 95%' },
+      }
+    );
+  }
+</script>

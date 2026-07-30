@@ -2,79 +2,275 @@
 // Espacio para importar datos si es necesario en el futuro
 ---
 
-<section id="portafolio" class="py-32 md:py-44 bg-concrete-950">
-  <div class="container-site">
+<section id="portafolio" class="py-24 md:py-32 bg-concrete-950 overflow-hidden relative">
+  <!-- Decoración de fondo sutil -->
+  <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-bronze-900/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
 
-    <!-- Header row -->
-    <div class="mb-20 md:mb-24">
-      <div>
-        <p class="section-label mb-4 opacity-reveal">Conoce el Complejo</p>
-        <h2 class="heading-xl text-concrete-50 opacity-reveal" style="transition-delay:0.1s">
-          Nuestras <em class="text-bronze-400 not-italic">Instalaciones</em>
-        </h2>
-      </div>
+  <div class="container-site max-w-7xl relative z-10">
+    
+    <!-- Header -->
+    <div class="text-center mb-16 md:mb-20">
+      <p class="section-label mb-4 opacity-reveal">Conoce el Complejo</p>
+      <h2 class="heading-xl text-concrete-50 opacity-reveal" style="transition-delay:0.1s">
+        Nuestras <em class="text-bronze-400 not-italic">Instalaciones</em>
+      </h2>
     </div>
-    <!-- Symmetrical 3-Column Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+
+    <!-- Deck Layout -->
+    <div class="flex flex-col lg:flex-row items-center gap-6 lg:gap-16">
       
-      <!-- Item 1: Photo 1 -->
-      <div class="group relative w-full aspect-[3/4] rounded-[2rem] overflow-hidden shadow-xl border border-bronze-500/10 bg-concrete-900 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_15px_40px_rgba(212,175,55,0.2)] opacity-reveal" style="transition-delay:0.05s">
-        <img src="/images/Imagen1Quelen.png" alt="Instalaciones 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-concrete-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+      <!-- Text Info (Left/Top) -->
+      <div class="w-full lg:w-2/5 flex flex-col items-center lg:items-start text-center lg:text-left">
+        
+        <div id="deck-text-container" class="relative w-full min-h-[160px] md:min-h-[150px] lg:min-h-[180px]">
+          
+          <!-- Texto 0 (Video) -->
+          <div class="deck-text absolute top-0 left-0 w-full transition-all duration-500 ease-out opacity-100 translate-y-0" data-index="0">
+            <h3 class="text-3xl font-sans font-light text-concrete-50 mb-4 uppercase tracking-[0.15em]">Complejo Altos de Quelén</h3>
+            <p class="text-concrete-400 text-base md:text-lg leading-relaxed">
+              Te invitamos a recorrer nuestras instalaciones a través de este video. Descubre nuestras piscinas, áreas de sauna y los lodges diseñados para ofrecerte una estadía inolvidable y de primer nivel.
+            </p>
+          </div>
+          
+          <!-- Texto 1 (Imagen 1) -->
+          <div class="deck-text absolute top-0 left-0 w-full transition-all duration-500 ease-out opacity-0 translate-y-4 pointer-events-none" data-index="1">
+            <h3 class="text-3xl font-sans font-light text-concrete-50 mb-4 uppercase tracking-[0.15em]">Piscina Temperada</h3>
+            <p class="text-concrete-400 text-base md:text-lg leading-relaxed">
+              Disfruta de nuestra piscina temperada, un espacio ideal para relajarte en cualquier época del año. Un ambiente cálido y confortable pensado exclusivamente para tu descanso físico y mental.
+            </p>
+          </div>
+          
+          <!-- Texto 2 (Imagen 2) -->
+          <div class="deck-text absolute top-0 left-0 w-full transition-all duration-500 ease-out opacity-0 translate-y-4 pointer-events-none" data-index="2">
+            <h3 class="text-3xl font-sans font-light text-concrete-50 mb-4 uppercase tracking-[0.15em]">Centro de Eventos</h3>
+            <p class="text-concrete-400 text-base md:text-lg leading-relaxed">
+              Contamos con un amplio y versátil centro de eventos, perfectamente equipado para albergar tus reuniones, celebraciones o actividades grupales con la mejor atención y todas las comodidades.
+            </p>
+          </div>
+
+        </div>
+
       </div>
 
-      <!-- Item 2: Photo 2 -->
-      <div class="group relative w-full aspect-[3/4] rounded-[2rem] overflow-hidden shadow-xl border border-bronze-500/10 bg-concrete-900 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_15px_40px_rgba(212,175,55,0.2)] opacity-reveal" style="transition-delay:0.15s">
-        <img src="/images/Imagen2Quelen.png" alt="Instalaciones 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-concrete-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-      </div>
+      <!-- Cards Stack (Right/Bottom) -->
+      <div class="w-full lg:w-3/5 relative aspect-[4/5] sm:aspect-video lg:aspect-[16/11] mt-2 lg:mt-0 perspective-1000">
+        
+        <!-- Navigation Buttons -->
+        <button id="prev-card-btn" class="absolute top-1/2 left-2 md:-left-6 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 rounded-full bg-concrete-950/80 backdrop-blur-md border border-bronze-500/40 flex items-center justify-center text-bronze-400 hover:bg-bronze-500 hover:text-white transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:scale-110">
+          <svg class="w-5 h-5 md:w-6 md:h-6 -translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        
+        <button id="next-card-btn-side" class="absolute top-1/2 right-2 md:-right-6 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 rounded-full bg-concrete-950/80 backdrop-blur-md border border-bronze-500/40 flex items-center justify-center text-bronze-400 hover:bg-bronze-500 hover:text-white transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:scale-110">
+          <svg class="w-5 h-5 md:w-6 md:h-6 translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+        
+        <!-- Card 0: Video (First) -->
+        <!-- Las clases iniciales las asume el JS, pero ponemos las de estado activo por defecto -->
+        <div class="deck-card absolute top-0 left-0 w-full h-full rounded-[2rem] overflow-hidden shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-30 scale-100 translate-x-0 opacity-100 origin-center" data-index="0">
+          <div class="absolute inset-0 border border-bronze-500/20 rounded-[2rem] z-20 pointer-events-none"></div>
+          
+          <!-- Custom Video Player -->
+          <video id="promo-video" src="/images/Video Quelen.mp4" class="w-full h-full object-cover" playsinline preload="metadata" poster="/images/Imagen1Quelen.png"></video>
+          
+          <!-- Play Overlay -->
+          <div id="video-overlay" class="absolute inset-0 bg-concrete-950/40 backdrop-blur-sm flex items-center justify-center z-10 transition-opacity duration-500 cursor-pointer group">
+            <div class="w-24 h-24 rounded-full bg-bronze-500/20 backdrop-blur-md border border-bronze-400/50 flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:bg-bronze-500/40 group-hover:border-bronze-400 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.4)]">
+              <svg class="w-10 h-10 text-concrete-50 translate-x-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
 
-      <!-- Item 3: Video -->
-      <div class="group relative w-full aspect-[3/4] rounded-[2rem] overflow-hidden shadow-xl border border-bronze-500/10 bg-black transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_15px_40px_rgba(212,175,55,0.2)] opacity-reveal" style="transition-delay:0.25s">
-        <video src="/images/Video Quelen.mp4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" controls playsinline preload="metadata"></video>
-        <div class="absolute inset-0 bg-gradient-to-t from-concrete-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+        <!-- Card 1: Image 1 -->
+        <div class="deck-card absolute top-0 left-0 w-full h-full rounded-[2rem] overflow-hidden shadow-xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-20 scale-[0.95] translate-x-8 md:translate-x-12 opacity-70 origin-center cursor-pointer" data-index="1">
+          <div class="absolute inset-0 border border-bronze-500/10 rounded-[2rem] z-20 pointer-events-none"></div>
+          <img src="/images/Imagen1Quelen.png" alt="Piscina Temperada" class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-concrete-950/20 pointer-events-none"></div>
+        </div>
+
+        <!-- Card 2: Image 2 -->
+        <div class="deck-card absolute top-0 left-0 w-full h-full rounded-[2rem] overflow-hidden shadow-lg transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-10 scale-[0.90] translate-x-16 md:translate-x-24 opacity-40 origin-center cursor-pointer" data-index="2">
+          <div class="absolute inset-0 border border-bronze-500/10 rounded-[2rem] z-20 pointer-events-none"></div>
+          <img src="/images/Imagen2Quelen.png" alt="Centro de Eventos" class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-concrete-950/40 pointer-events-none"></div>
+        </div>
+
       </div>
 
     </div>
-
-
-
   </div>
 </section>
 
 <script>
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
   gsap.registerPlugin(ScrollTrigger);
 
-  /* ── Generic opacity reveal ── */
-  gsap.utils.toArray<HTMLElement>('.opacity-reveal').forEach((el) => {
-    if (document.querySelector('#portafolio')?.contains(el)) {
-      gsap.fromTo(el,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%' },
-        }
-      );
-    }
-  });
-
-  /* ── Simple card reveal on scroll (optimized) ── */
-  gsap.utils.toArray<HTMLElement>('.portfolio-card').forEach((card) => {
-    gsap.fromTo(card,
-      { opacity: 0, y: 30 },
+  /* ── Section header animations ── */
+  const portSection = document.getElementById('portafolio');
+  if (portSection) {
+    // Section label slide-in
+    gsap.fromTo('#portafolio .section-label',
+      { opacity: 0, y: 20 },
       {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 85%',
-        },
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: '#portafolio .section-label', start: 'top 88%' },
       }
     );
+
+    // Heading fade-up
+    gsap.fromTo('#portafolio .heading-xl',
+      { opacity: 0, y: 35 },
+      {
+        opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: '#portafolio .heading-xl', start: 'top 88%' },
+      }
+    );
+
+    // Text container slide from left
+    gsap.fromTo('#deck-text-container',
+      { opacity: 0, x: -40 },
+      {
+        opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: '#deck-text-container', start: 'top 85%' },
+      }
+    );
+
+    // Deck of cards container — scale entrance
+    const deckCards = portSection.querySelectorAll('.deck-card');
+    gsap.fromTo(deckCards,
+      { opacity: 0, scale: 0.9 },
+      {
+        opacity: 1, scale: 1,
+        stagger: 0.1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.perspective-1000', start: 'top 82%' },
+        onComplete: () => {
+          // After entrance, restore proper deck state
+          updateDeck();
+        }
+      }
+    );
+
+    // Nav buttons fade in
+    gsap.fromTo('#prev-card-btn, #next-card-btn-side',
+      { opacity: 0, scale: 0.5 },
+      {
+        opacity: 1, scale: 1,
+        duration: 0.6,
+        ease: 'back.out(2)',
+        delay: 0.3,
+        scrollTrigger: { trigger: '.perspective-1000', start: 'top 80%' },
+      }
+    );
+
+    // Background decorative orb parallax
+    gsap.to('#portafolio .absolute.top-0.right-0', {
+      y: 80,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#portafolio',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+  }
+
+  /* ── Deck of Cards Logic ── */
+  let activeIndex = 0;
+  const cards = document.querySelectorAll('.deck-card');
+  const texts = document.querySelectorAll('.deck-text');
+  const totalCards = cards.length;
+  
+  const video = document.getElementById('promo-video') as HTMLVideoElement;
+  const overlay = document.getElementById('video-overlay');
+
+  function updateDeck() {
+    cards.forEach((card, i) => {
+      // Calcular posición relativa al índice activo
+      let pos = (i - activeIndex + totalCards) % totalCards;
+      
+      // Reiniciar clases base (mantenemos las transiciones)
+      card.className = "deck-card absolute top-0 left-0 w-full h-full rounded-[2rem] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] origin-center";
+      
+      if (pos === 0) {
+        // Carta Activa (Frente)
+        card.classList.add('z-30', 'scale-100', 'translate-x-0', 'opacity-100', 'shadow-[0_20px_50px_rgba(0,0,0,0.5)]');
+      } else if (pos === 1) {
+        // Siguiente Carta (Atrás)
+        card.classList.add('z-20', 'scale-[0.95]', 'translate-x-8', 'md:translate-x-12', 'opacity-70', 'shadow-xl', 'cursor-pointer');
+      } else if (pos === 2) {
+        // Última Carta (Más atrás)
+        card.classList.add('z-10', 'scale-[0.90]', 'translate-x-16', 'md:translate-x-24', 'opacity-40', 'shadow-lg', 'cursor-pointer');
+      }
+    });
+
+    // Actualizar Textos
+    texts.forEach((text, i) => {
+      if (i === activeIndex) {
+        text.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+        text.classList.add('opacity-100', 'translate-y-0');
+      } else {
+        text.classList.remove('opacity-100', 'translate-y-0');
+        text.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      }
+    });
+  }
+
+  function nextCard() {
+    activeIndex = (activeIndex + 1) % totalCards;
+    
+    // Si cambiamos de carta, pausamos el video y restauramos el overlay
+    if (video && overlay) {
+      video.pause();
+      video.removeAttribute('controls');
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+    }
+    
+    updateDeck();
+  }
+
+  function prevCard() {
+    activeIndex = (activeIndex - 1 + totalCards) % totalCards;
+    if (video && overlay) {
+      video.pause();
+      video.removeAttribute('controls');
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+    }
+    updateDeck();
+  }
+
+  // Bind botones
+  const nextBtn = document.getElementById('next-card-btn-side');
+  if (nextBtn) nextBtn.addEventListener('click', nextCard);
+
+  const prevBtn = document.getElementById('prev-card-btn');
+  if (prevBtn) prevBtn.addEventListener('click', prevCard);
+
+  // Permitir avanzar haciendo clic en las cartas de atrás
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => {
+      // Solo avanzar si hacemos clic en una carta que no sea la activa
+      if (i !== activeIndex) {
+        nextCard();
+      }
+    });
   });
+
+  /* ── Custom Video Player Logic ── */
+  if (overlay && video) {
+    overlay.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevenir que el clic se propague a la carta
+      video.play();
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      video.setAttribute('controls', 'true'); // Mostrar controles nativos una vez que empieza
+    });
+
+    // Cuando el usuario pausa el video, volvemos a mostrar el diseño custom
+    video.addEventListener('pause', () => {
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      video.removeAttribute('controls');
+    });
+  }
 </script>

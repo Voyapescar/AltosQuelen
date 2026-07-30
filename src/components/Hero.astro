@@ -27,20 +27,23 @@
 
       <!-- Title: split into word-clip spans for GSAP -->
       <h1 class="heading-display text-concrete-50 text-balance mb-6 max-w-5xl" id="hero-title">
+        <span class="block font-sans text-lg md:text-2xl lg:text-3xl font-light uppercase tracking-[0.2em] mb-3 text-concrete-200">
+          <span class="word-clip"><span class="word-inner">Complejo</span></span>
+          <span class="word-clip"><span class="word-inner">&nbsp;Turístico</span></span>
+        </span>
         <span class="block">
           <span class="word-clip"><span class="word-inner">Altos</span></span>
           <span class="word-clip"><span class="word-inner">&nbsp;de</span></span>
         </span>
-        <span class="block text-bronze-400 italic">
+        <span class="block text-bronze-400 italic pr-4">
           <span class="word-clip"><span class="word-inner">Quelén</span></span>
         </span>
       </h1>
 
       <!-- Subtitle -->
       <div id="hero-sub" class="opacity-0 w-full mt-4">
-        <p class="font-sans text-base md:text-lg text-concrete-300 max-w-md leading-relaxed">
-          Piscinas climatizadas abiertas de Martes a Domingo.<br class="hidden md:block" />
-          Salón de eventos y Cabañas disponibles.
+        <p class="font-sans text-base md:text-lg text-concrete-300 max-w-lg leading-relaxed">
+          Centro turístico premium en la ciudad de Cañete. Contamos con lodges, piscinas temperadas, sauna, jacuzzi, centro de eventos y amplias áreas verdes.
         </p>
       </div>
 
@@ -67,19 +70,40 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
+  /* ── Cinematic background zoom ── */
+  gsap.fromTo('#hero-bg img',
+    { scale: 1.15 },
+    { scale: 1, duration: 2.5, ease: 'power2.out', delay: 0.2 }
+  );
+
   /* ── Hero entrance timeline ── */
   const tl = gsap.timeline({
     defaults: { ease: 'power4.out' },
-    delay: 0.1,
+    delay: 0.4,
   });
 
   tl
-    .to('.word-inner',   { y: '0%', stagger: 0.05, duration: 0.6 })
-    .to('#hero-buttons', { opacity: 1, y: 0, duration: 0.5 }, '-=0.3');
+    .to('.word-inner', {
+      y: '0%',
+      stagger: 0.08,
+      duration: 1,
+      ease: 'power4.out',
+    })
+    .fromTo('#hero-sub',
+      { opacity: 0, y: 25 },
+      { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
+      '-=0.4'
+    )
+    .fromTo('#hero-buttons',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+      '-=0.5'
+    );
 
-  /* ── Fade out hero content on scroll ── */
+  /* ── Parallax fade out hero content on scroll ── */
   gsap.to('#hero .relative.z-10', {
     opacity: 0,
+    y: -60,
     ease: 'none',
     scrollTrigger: {
       trigger: '#hero',
@@ -88,4 +112,17 @@
       scrub:   true,
     },
   });
+
+  /* ── Subtle parallax on background image ── */
+  gsap.to('#hero-bg', {
+    y: 120,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    },
+  });
 </script>
+

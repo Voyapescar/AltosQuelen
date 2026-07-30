@@ -31,7 +31,10 @@ import CotizacionForm from './CotizacionForm.tsx';
 
       <!-- Right: Form -->
       <div class="lg:col-span-7 xl:col-span-7 xl:col-start-6">
-        <div class="bg-concrete-900 rounded-3xl border border-bronze-500/20 p-7 md:p-10 opacity-reveal shadow-xl" style="transition-delay:0.15s">
+        <div class="bg-concrete-950/40 backdrop-blur-2xl rounded-3xl border border-bronze-500/20 p-7 md:p-10 opacity-reveal shadow-[0_20px_60px_rgba(0,0,0,0.6)] relative overflow-hidden" style="transition-delay:0.15s">
+          <!-- Subtle inner glow top border -->
+          <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-bronze-400/30 to-transparent"></div>
+          
           <CotizacionForm client:visible />
         </div>
       </div>
@@ -98,15 +101,18 @@ import CotizacionForm from './CotizacionForm.tsx';
 
     </div>
 
-    <!-- Location Map (Optimized for performance - no scroll reveal) -->
-    <div id="ubicacion" class="mt-20">
-      <div class="border border-bronze-500/10 p-2 md:p-4 relative group rounded-3xl bg-concrete-950">
-         <div class="w-full h-[450px] overflow-hidden bg-concrete-950 rounded-2xl relative z-10">
-           <!-- Background Image from Hero -->
-           <div class="absolute inset-0 bg-[url('/images/FotoHeroPro.png')] bg-cover bg-center opacity-30"></div>
-           <!-- Dark tint over the image so roads are readable -->
-           <div class="absolute inset-0 bg-concrete-950/90 pointer-events-none"></div>
+    <!-- Location Map (Premium Version) -->
+    <div id="ubicacion" class="mt-20 opacity-reveal" style="transition-delay:0.4s">
+      <div class="border border-bronze-500/10 p-2 md:p-4 relative rounded-3xl bg-concrete-950 shadow-2xl">
+         
+         <div class="w-full h-[500px] overflow-hidden bg-concrete-950 rounded-2xl relative z-10 group">
            
+           <!-- Background Image from Hero -->
+           <div class="absolute inset-0 bg-[url('/images/FotoHeroPro.png')] bg-cover bg-center opacity-20 pointer-events-none z-0"></div>
+           <!-- Dark tint over the image so roads are readable -->
+           <div class="absolute inset-0 bg-concrete-950/80 pointer-events-none z-0"></div>
+           
+           <!-- Iframe (Map) -->
            <iframe
              src="https://maps.google.com/maps?q=Altos%20de%20Quelen%20complejo%20tur%C3%ADstico&t=&z=16&ie=UTF8&iwloc=&output=embed"
              width="100%"
@@ -115,8 +121,34 @@ import CotizacionForm from './CotizacionForm.tsx';
              allowfullscreen=""
              loading="lazy"
              referrerpolicy="no-referrer-when-downgrade"
-             class="w-full h-full relative z-10 mix-blend-screen opacity-100"
+             class="w-full h-full relative z-10 mix-blend-screen opacity-90"
            ></iframe>
+
+           <!-- 1. Click-to-Unlock Overlay -->
+           <div id="map-overlay" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-concrete-950/60 backdrop-blur-sm transition-all duration-500 cursor-pointer">
+             <div class="w-16 h-16 rounded-full bg-bronze-500/20 border border-bronze-500/40 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:bg-bronze-500/30 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                <svg class="w-6 h-6 text-bronze-400 translate-x-px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v10.764a1 1 0 01-1.447.894L15 18M5 18l-4.553 2.276A1 1 0 010 19.382V8.618a1 1 0 011.447-.894L5 10m10 0V4a2 2 0 00-2-2H7a2 2 0 00-2 2v6m10 0l-5 2.5L5 10"></path></svg>
+             </div>
+             <p class="font-sans text-xs font-semibold tracking-[0.2em] text-concrete-100 uppercase">Explorar Mapa</p>
+           </div>
+
+           <!-- 2. Floating Card -->
+           <div class="absolute bottom-4 left-4 md:bottom-8 md:left-8 z-30 bg-concrete-900/80 backdrop-blur-xl border border-bronze-500/30 p-5 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.6)] w-[calc(100%-32px)] md:w-auto md:min-w-[280px]">
+             <div class="flex items-start gap-4 mb-5">
+               <div class="w-10 h-10 rounded-full bg-bronze-500/10 flex items-center justify-center shrink-0">
+                 <svg class="w-5 h-5 text-bronze-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+               </div>
+               <div>
+                 <h4 class="font-sans text-[13px] font-semibold text-concrete-50 mb-1 uppercase tracking-wider">Altos de Quelén</h4>
+                 <p class="font-sans text-xs text-concrete-400 leading-relaxed">Cañete, Región del Bío Bío,<br />Chile.</p>
+               </div>
+             </div>
+             <a href="https://www.google.com/maps/search/?api=1&query=Altos+de+Quelen+complejo+turistico" target="_blank" rel="noopener noreferrer" class="btn-primary w-full text-center flex justify-center items-center gap-2 text-[11px] py-3">
+               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+               Cómo llegar
+             </a>
+           </div>
+
          </div>
       </div>
     </div>
@@ -129,13 +161,80 @@ import CotizacionForm from './CotizacionForm.tsx';
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.utils.toArray<HTMLElement>('#cotizacion .opacity-reveal').forEach((el) => {
-    gsap.fromTo(el,
-      { opacity: 0, y: 30 },
+  /* ── Left panel reveals ── */
+  gsap.fromTo('#cotizacion .section-label',
+    { opacity: 0, x: -30 },
+    {
+      opacity: 1, x: 0, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '#cotizacion .section-label', start: 'top 88%' },
+    }
+  );
+
+  gsap.fromTo('#cotizacion .heading-xl',
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#cotizacion .heading-xl', start: 'top 88%' },
+    }
+  );
+
+  gsap.fromTo('#cotizacion .font-sans.text-base.text-concrete-400',
+    { opacity: 0, y: 20 },
+    {
+      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '#cotizacion .font-sans.text-base.text-concrete-400', start: 'top 88%' },
+    }
+  );
+
+  /* ── Form container — slide from right ── */
+  const formContainer = document.querySelector('#cotizacion .backdrop-blur-2xl');
+  if (formContainer) {
+    gsap.fromTo(formContainer,
+      { opacity: 0, x: 50, scale: 0.97 },
       {
-        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 85%' },
+        opacity: 1, x: 0, scale: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: formContainer, start: 'top 82%' },
       }
     );
-  });
+  }
+
+  /* ── Contact info cards — stagger from below ── */
+  const contactCards = document.querySelectorAll('#cotizacion .grid.grid-cols-1.md\\:grid-cols-3 > *');
+  if (contactCards.length) {
+    gsap.fromTo(contactCards,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0,
+        stagger: 0.12,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '#cotizacion .grid.grid-cols-1.md\\:grid-cols-3', start: 'top 88%' },
+      }
+    );
+  }
+
+  /* ── Map section — scale entrance ── */
+  const mapSection = document.getElementById('ubicacion');
+  if (mapSection) {
+    gsap.fromTo(mapSection,
+      { opacity: 0, y: 40, scale: 0.97 },
+      {
+        opacity: 1, y: 0, scale: 1,
+        duration: 1.1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: mapSection, start: 'top 85%' },
+      }
+    );
+  }
+
+  /* ── Map Overlay Logic ── */
+  const mapOverlay = document.getElementById('map-overlay');
+  if (mapOverlay) {
+    mapOverlay.addEventListener('click', () => {
+      mapOverlay.classList.add('opacity-0', 'pointer-events-none');
+    });
+  }
 </script>
+

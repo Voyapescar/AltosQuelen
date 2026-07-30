@@ -115,31 +115,70 @@ const testimonios = [
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.utils.toArray<HTMLElement>('#testimonios .opacity-reveal').forEach((el) => {
-    gsap.fromTo(el,
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 85%' },
-      }
-    );
-  });
+  /* ── Google badge bounce-in ── */
+  gsap.fromTo('#testimonios .rounded-full',
+    { opacity: 0, scale: 0.6, y: 15 },
+    {
+      opacity: 1, scale: 1, y: 0,
+      duration: 0.8,
+      ease: 'back.out(2)',
+      scrollTrigger: { trigger: '#testimonios .rounded-full', start: 'top 88%' },
+    }
+  );
 
-  /* ── Staggered card mask reveal ── */
+  /* ── Heading fade-up ── */
+  gsap.fromTo('#testimonios .heading-xl',
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#testimonios .heading-xl', start: 'top 88%' },
+    }
+  );
+
+  /* ── Staggered card reveal ── */
   gsap.utils.toArray<HTMLElement>('.testimonio-card').forEach((card, i) => {
     gsap.fromTo(card,
-      { opacity: 0, y: 30 },
+      { opacity: 0, y: 50, rotate: i % 2 === 0 ? -1 : 1 },
       {
-        opacity: 1, 
-        y: 0,
-        duration: 0.8,
+        opacity: 1, y: 0, rotate: 0,
+        duration: 0.9,
         ease: 'power3.out',
-        delay: i * 0.05,
+        delay: i * 0.12,
         scrollTrigger: {
-          trigger: card,
-          start: 'top 90%',
+          trigger: '#testimonios .grid',
+          start: 'top 85%',
         },
       }
     );
   });
+
+  /* ── Decorative quote marks parallax ── */
+  gsap.utils.toArray<HTMLElement>('#testimonios .font-serif.text-\\[18rem\\]').forEach((el) => {
+    gsap.to(el, {
+      y: 60,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#testimonios',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+  });
+
+  /* ── Social proof strip stagger ── */
+  const proofItems = document.querySelectorAll('#testimonios .grid.grid-cols-2 > div');
+  if (proofItems.length) {
+    gsap.fromTo(proofItems,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '#testimonios .grid.grid-cols-2', start: 'top 88%' },
+      }
+    );
+  }
 </script>
+

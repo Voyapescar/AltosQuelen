@@ -129,16 +129,94 @@ const stats = [
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* ── Generic opacity reveal ── */
-  gsap.utils.toArray<HTMLElement>('.opacity-reveal').forEach((el) => {
-    gsap.fromTo(el,
-      { opacity: 0, y: 30 },
+  /* ── Section label & decorative number ── */
+  const filoSection = document.getElementById('filosofia');
+  if (filoSection) {
+    // Section label slide-in from left
+    gsap.utils.toArray<HTMLElement>('#filosofia .section-label').forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, x: -30 },
+        {
+          opacity: 1, x: 0, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%' },
+        }
+      );
+    });
+
+    // Big decorative "10" — fade + scale
+    gsap.fromTo('#filosofia .font-serif.text-\\[8rem\\]',
+      { opacity: 0, scale: 0.8 },
       {
-        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 85%' },
+        opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out',
+        scrollTrigger: { trigger: '#filosofia .font-serif.text-\\[8rem\\]', start: 'top 85%' },
       }
     );
-  });
+
+    // Heading slide-up
+    gsap.fromTo('#filosofia .heading-xl',
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: '#filosofia .heading-xl', start: 'top 85%' },
+      }
+    );
+
+    // Body paragraphs stagger
+    gsap.fromTo('#filosofia .space-y-5',
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: '#filosofia .space-y-5', start: 'top 85%' },
+      }
+    );
+
+    // Blockquote — slide-in from left with border growing
+    gsap.fromTo('#filosofia blockquote',
+      { opacity: 0, x: -40 },
+      {
+        opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: '#filosofia blockquote', start: 'top 85%' },
+      }
+    );
+
+    // Stats row — stagger each stat from below
+    const statItems = filoSection.querySelectorAll('.grid.grid-cols-2 > div');
+    gsap.fromTo(statItems,
+      { opacity: 0, y: 40, scale: 0.95 },
+      {
+        opacity: 1, y: 0, scale: 1,
+        stagger: 0.12,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.grid.grid-cols-2.md\\:grid-cols-4', start: 'top 85%' },
+      }
+    );
+
+    // Pilares — stagger from below with scale
+    const pilares = filoSection.querySelectorAll('.grid.grid-cols-1.md\\:grid-cols-3 > div');
+    gsap.fromTo(pilares,
+      { opacity: 0, y: 50, scale: 0.96 },
+      {
+        opacity: 1, y: 0, scale: 1,
+        stagger: 0.15,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.grid.grid-cols-1.md\\:grid-cols-3', start: 'top 82%' },
+      }
+    );
+
+    // Parallax on the decorative "ADQ"
+    gsap.to('#filosofia .absolute.-top-10', {
+      y: 100,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#filosofia',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+  }
 
   /* ── Counter animation ── */
   gsap.utils.toArray<HTMLElement>('.counter').forEach((el) => {
@@ -152,7 +230,7 @@ const stats = [
         const obj = { val: 0 };
         gsap.to(obj, {
           val: target,
-          duration: 1.2,
+          duration: 1.6,
           ease: 'power2.out',
           onUpdate: () => {
             el.textContent = Math.round(obj.val) + suffix;
@@ -163,3 +241,4 @@ const stats = [
     });
   });
 </script>
+

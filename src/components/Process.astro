@@ -130,36 +130,50 @@ const pasos = [
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* ── Generic reveals ── */
-  gsap.utils.toArray<HTMLElement>('.opacity-reveal').forEach((el) => {
-    if (document.querySelector('#proceso')?.contains(el)) {
-      gsap.fromTo(el,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%' },
-        }
-      );
+  /* ── Section header reveals ── */
+  gsap.fromTo('#proceso .section-label',
+    { opacity: 0, x: -30 },
+    {
+      opacity: 1, x: 0, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '#proceso .section-label', start: 'top 88%' },
     }
-  });
+  );
 
-  /* ── Process steps stagger ── */
+  gsap.fromTo('#proceso .heading-xl',
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#proceso .heading-xl', start: 'top 88%' },
+    }
+  );
+
+  gsap.fromTo('#proceso .font-sans.text-base.text-concrete-400',
+    { opacity: 0, y: 20 },
+    {
+      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '#proceso .font-sans.text-base.text-concrete-400', start: 'top 88%' },
+    }
+  );
+
+  /* ── Process steps stagger (Desktop) ── */
   const steps = gsap.utils.toArray<HTMLElement>('.process-step');
   if (steps.length) {
-    gsap.fromTo(steps,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1, y: 0,
-        stagger: 0.1,
-        duration: 0.5,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: '#proceso', start: 'top 70%' },
-      }
-    );
-
-    /* Animate node on enter */
     steps.forEach((step, i) => {
       const node = step.querySelector('.process-node');
+      
+      // Each step slides up independently
+      gsap.fromTo(step,
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1, y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          delay: i * 0.15,
+          scrollTrigger: { trigger: '#proceso .grid-cols-4', start: 'top 75%' },
+        }
+      );
+
+      // Node glow animation
       if (node) {
         ScrollTrigger.create({
           trigger: step,
@@ -167,9 +181,11 @@ const pasos = [
           onEnter: () => {
             gsap.to(node, {
               borderColor: 'rgba(201,169,110,0.8)',
-              backgroundColor: 'rgba(201,169,110,0.06)',
-              duration: 0.3,
-              delay: i * 0.1,
+              backgroundColor: 'rgba(201,169,110,0.08)',
+              boxShadow: '0 0 20px rgba(201,169,110,0.15)',
+              duration: 0.6,
+              ease: 'power2.out',
+              delay: i * 0.15,
             });
           },
           once: true,
@@ -178,15 +194,16 @@ const pasos = [
     });
   }
 
-  /* Mobile steps */
-  gsap.utils.toArray<HTMLElement>('.process-step-mobile').forEach((el) => {
+  /* ── Mobile steps — slide from left ── */
+  gsap.utils.toArray<HTMLElement>('.process-step-mobile').forEach((el, i) => {
     gsap.fromTo(el,
-      { opacity: 0, x: -20 },
+      { opacity: 0, x: -30 },
       {
         opacity: 1, x: 0,
-        duration: 0.5,
+        duration: 0.8,
         ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%' },
+        delay: i * 0.08,
+        scrollTrigger: { trigger: el, start: 'top 90%' },
       }
     );
   });
@@ -199,10 +216,23 @@ const pasos = [
       ease: 'none',
       scrollTrigger: {
         trigger: '#proceso',
-        start: 'top 60%',
-        end:   'bottom 60%',
-        scrub:  1,
+        start: 'top 55%',
+        end:   'bottom 55%',
+        scrub:  1.5,
       },
     });
   }
+
+  /* ── Bottom CTA reveal ── */
+  const ctaBlock = document.querySelector('#proceso .border-t.border-bronze-500\\/10');
+  if (ctaBlock) {
+    gsap.fromTo(ctaBlock,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: ctaBlock, start: 'top 88%' },
+      }
+    );
+  }
 </script>
+

@@ -64,12 +64,15 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${MESSAGE}`;
 <script>
   import { gsap } from 'gsap';
 
-  /* ── Show button after 3 seconds ── */
-  gsap.to('#whatsapp-btn', {
-    opacity: 1,
-    y: 0,
-    duration: 0.6,
-    ease: 'power3.out',
-    delay: 3,
-  });
+  /* ── Show button after 2.5 seconds with bounce ── */
+  gsap.fromTo('#whatsapp-btn',
+    { opacity: 0, scale: 0.5, y: 30 },
+    {
+      opacity: 1, scale: 1, y: 0,
+      duration: 0.8,
+      ease: 'back.out(2.5)',
+      delay: 2.5,
+    }
+  );
 </script>
+
