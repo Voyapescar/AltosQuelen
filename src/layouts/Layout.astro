@@ -1,0 +1,115 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?:       string;
+  description?: string;
+  ogImage?:     string;
+  canonical?:   string;
+}
+
+const {
+  title       = 'Complejo Turistico y Deportivo Altos de Quelén',
+  description = 'Complejo turístico Altos de Quelen Cañete. Piscinas climatizadas abiertas de Martes a Domingo. Salón de eventos y Cabañas disponibles.',
+  ogImage     = '/og-image.jpg',
+  canonical   = Astro.url.href,
+} = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type':    'LodgingBusiness',
+  name:        'Complejo Turistico y Deportivo Altos de Quelén',
+  description,
+  url:         import.meta.env.PUBLIC_SITE_URL ?? 'https://www.TU_DOMINIO.cl',
+  telephone:   '+56992671183',
+  address: {
+    '@type':          'PostalAddress',
+    streetAddress:    'Cañete',
+    addressLocality:  'Cañete',
+    addressRegion:    'Biobío',
+    addressCountry:   'CL',
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Cañete' },
+    { '@type': 'City', name: 'Provincia de Arauco' },
+  ],
+  priceRange:    '$$',
+  openingHours:  'Tu-Su 09:00-20:00',
+  image:          ogImage,
+  knowsAbout:    ['Cabañas', 'Piscinas climatizadas', 'Salón de eventos', 'Turismo'],
+};
+---
+
+<!DOCTYPE html>
+<html lang="es-CL" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d0c0a" />
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <!-- Preconnect para fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Preload hero image -->
+  <link rel="preload" as="image" href="/images/FotoHeroPro.png" fetchpriority="high" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content={canonical} />
+  <meta property="og:title"       content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image"       content={ogImage} />
+  <meta property="og:locale"      content="es_CL" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image"       content={ogImage} />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <title>{title}</title>
+</head>
+
+<body>
+  <slot />
+</body>
+</html>
+
+<script>
+  import Lenis from 'lenis';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── Lenis Smooth Scroll ── */
+  const lenis = new Lenis({
+    duration:         1.4,
+    easing:           (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    touchMultiplier:  2,
+  });
+
+  lenis.on('scroll', ScrollTrigger.update);
+
+  gsap.ticker.add((time: number) => {
+    lenis.raf(time * 1000);
+  });
+
+  /* ── Smooth anchor links ── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector((anchor as HTMLAnchorElement).getAttribute('href')!);
+      if (target) lenis.scrollTo(target as HTMLElement, { offset: -80 });
+    });
+  });
+</script>

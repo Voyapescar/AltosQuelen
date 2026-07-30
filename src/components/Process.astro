@@ -1,0 +1,208 @@
+---
+const pasos = [
+  {
+    numero:      '01',
+    titulo:      'Contacto & Reservas',
+    descripcion: 'Escríbenos para consultar disponibilidad. Te asesoramos en la elección de tu cabaña ideal y te enviamos toda la información.',
+    duracion:    'Respuesta rápida',
+    icono:       '✦',
+  },
+  {
+    numero:      '02',
+    titulo:      'Llegada & Check-in',
+    descripcion: 'Te recibimos personalmente, te entregamos las llaves de tu cabaña y te explicamos el uso de piscinas y áreas comunes.',
+    duracion:    'Día de llegada',
+    icono:       '✦',
+  },
+  {
+    numero:      '03',
+    titulo:      'Descanso & Disfrute',
+    descripcion: 'Relájate en nuestras piscinas climatizadas, pasea por las áreas verdes o simplemente descansa en la comodidad de tu cabaña.',
+    duracion:    'Tu estadía',
+    icono:       '✦',
+  },
+  {
+    numero:      '04',
+    titulo:      'Check-out',
+    descripcion: 'Despídete renovado. Recibimos las llaves y nos aseguramos de que tu experiencia haya sido perfecta para que desees volver.',
+    duracion:    'Día de salida',
+    icono:       '✦',
+  },
+];
+---
+
+<section id="proceso" class="py-32 md:py-44 bg-surface overflow-hidden">
+  <div class="container-site">
+
+    <!-- Header -->
+    <div class="max-w-xl mb-20 md:mb-28">
+      <p class="section-label mb-4 opacity-reveal">Tu Experiencia</p>
+      <h2 class="heading-xl text-concrete-50 opacity-reveal" style="transition-delay:0.1s">
+        Simplicidad<br />
+        <em class="text-bronze-400 not-italic">en cada paso</em>
+      </h2>
+      <p class="font-sans text-base text-concrete-400 mt-6 leading-relaxed opacity-reveal" style="transition-delay:0.2s">
+        Desde tu primera consulta hasta el momento de tu partida, nos ocupamos de todo
+        para que tu único trabajo sea relajarte.
+      </p>
+    </div>
+
+    <!-- Timeline desktop: horizontal connector -->
+    <div class="hidden md:block relative mb-16">
+      <!-- Progress line -->
+      <div class="absolute top-[28px] left-0 right-0 h-px bg-bronze-500/10" aria-hidden="true">
+        <div id="process-line" class="h-full bg-bronze-500/40 w-0 will-change-auto"></div>
+      </div>
+      <div class="grid grid-cols-4 gap-5">
+        {pasos.map((paso, i) => (
+          <div class="process-step pt-2" data-index={i}>
+            <!-- Node -->
+            <div class="relative flex items-center mb-8">
+              <div class="process-node w-14 h-14 border border-bronze-500/30
+                          flex items-center justify-center bg-concrete-950
+                          transition-all duration-500 shrink-0 rounded-2xl">
+                <span class="font-serif text-bronze-500/60 text-xl font-light">{paso.icono}</span>
+              </div>
+            </div>
+            <!-- Content -->
+            <span class="section-label block mb-3">{paso.numero}</span>
+            <h3 class="font-serif text-xl md:text-2xl text-concrete-100 mb-3 leading-tight">
+              {paso.titulo}
+            </h3>
+            <p class="font-sans text-sm text-concrete-400 leading-relaxed mb-4">
+              {paso.descripcion}
+            </p>
+            <p class="font-sans text-xs text-bronze-500/70 uppercase tracking-widest">
+              ⌛ {paso.duracion}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Timeline mobile: vertical -->
+    <div class="md:hidden space-y-0">
+      {pasos.map((paso, i) => (
+        <div class="process-step-mobile flex gap-6 pb-10" data-index={i}>
+          <!-- Vertical connector -->
+          <div class="flex flex-col items-center shrink-0">
+            <div class="w-10 h-10 border border-bronze-500/30 flex items-center justify-center
+                        bg-concrete-950 shrink-0 rounded-xl">
+              <span class="font-serif text-bronze-500/60 text-base">{paso.icono}</span>
+            </div>
+            {i < pasos.length - 1 && (
+              <div class="w-px flex-1 mt-3 bg-bronze-500/15 min-h-[60px]"></div>
+            )}
+          </div>
+          <!-- Content -->
+          <div class="pt-1.5 pb-4">
+            <span class="section-label block mb-2">{paso.numero}</span>
+            <h3 class="font-serif text-xl text-concrete-100 mb-2 leading-tight">{paso.titulo}</h3>
+            <p class="font-sans text-sm text-concrete-400 leading-relaxed mb-3">{paso.descripcion}</p>
+            <p class="font-sans text-xs text-bronze-500/70 uppercase tracking-widest">⌛ {paso.duracion}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="mt-16 pt-10 border-t border-bronze-500/10 flex flex-col md:flex-row items-start
+                md:items-center justify-between gap-6 opacity-reveal">
+      <div>
+        <p class="font-serif text-2xl md:text-3xl text-concrete-200 mb-1">
+          ¿Listo para desconectarte?
+        </p>
+        <p class="font-sans text-sm text-concrete-400">
+          Revisa nuestra disponibilidad y agenda tu visita.
+        </p>
+      </div>
+      <a href="#cotizacion" class="btn-primary shrink-0">
+        Reservar Ahora
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── Generic reveals ── */
+  gsap.utils.toArray<HTMLElement>('.opacity-reveal').forEach((el) => {
+    if (document.querySelector('#proceso')?.contains(el)) {
+      gsap.fromTo(el,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 85%' },
+        }
+      );
+    }
+  });
+
+  /* ── Process steps stagger ── */
+  const steps = gsap.utils.toArray<HTMLElement>('.process-step');
+  if (steps.length) {
+    gsap.fromTo(steps,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1, y: 0,
+        stagger: 0.1,
+        duration: 0.5,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '#proceso', start: 'top 70%' },
+      }
+    );
+
+    /* Animate node on enter */
+    steps.forEach((step, i) => {
+      const node = step.querySelector('.process-node');
+      if (node) {
+        ScrollTrigger.create({
+          trigger: step,
+          start: 'top 75%',
+          onEnter: () => {
+            gsap.to(node, {
+              borderColor: 'rgba(201,169,110,0.8)',
+              backgroundColor: 'rgba(201,169,110,0.06)',
+              duration: 0.3,
+              delay: i * 0.1,
+            });
+          },
+          once: true,
+        });
+      }
+    });
+  }
+
+  /* Mobile steps */
+  gsap.utils.toArray<HTMLElement>('.process-step-mobile').forEach((el) => {
+    gsap.fromTo(el,
+      { opacity: 0, x: -20 },
+      {
+        opacity: 1, x: 0,
+        duration: 0.5,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' },
+      }
+    );
+  });
+
+  /* ── Horizontal progress line ── */
+  const line = document.getElementById('process-line');
+  if (line) {
+    gsap.to(line, {
+      width: '100%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#proceso',
+        start: 'top 60%',
+        end:   'bottom 60%',
+        scrub:  1,
+      },
+    });
+  }
+</script>

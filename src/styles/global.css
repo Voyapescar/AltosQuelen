@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg:           #0d0c0a;
+    --color-surface:      #161412;
+    --color-surface-2:    #1e1c19;
+    --color-text:         #f0ede8;
+    --color-text-muted:   #8a8480;
+    --color-accent:       #c9a96e;
+    --color-accent-light: #e8c97e;
+    --color-border:       rgba(201, 169, 110, 0.12);
+  }
+
+  html {
+    @apply scroll-smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-concrete-950 text-concrete-50 font-sans antialiased;
+    overflow-x: hidden;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20;
+  }
+
+  .section-label {
+    @apply text-xs font-sans font-500 uppercase tracking-[0.25em] text-bronze-500;
+  }
+
+  .heading-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(3.2rem, 9vw, 8.5rem);
+    font-weight: 500;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+  }
+
+  .heading-xl {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    font-weight: 500;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+  }
+
+  .heading-lg {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-bronze-500 text-concrete-950
+           font-sans font-600 text-[13px] tracking-[0.15em] uppercase rounded-full
+           transition-colors duration-300 hover:bg-concrete-50
+           focus-visible:outline focus-visible:outline-2 focus-visible:outline-bronze-500;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4
+           border border-concrete-300/40 text-concrete-100 rounded-full
+           font-sans font-600 text-[13px] tracking-[0.15em] uppercase
+           transition-all duration-300 hover:border-concrete-50 hover:bg-concrete-50/10;
+  }
+
+  .word-clip {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0.06em;
+    vertical-align: bottom;
+  }
+
+  .word-inner {
+    display: inline-block;
+    transform: translateY(110%);
+    will-change: transform;
+  }
+}
+
+@layer utilities {
+  .font-500 {
+    font-weight: 500;
+  }
+
+  .font-600 {
+    font-weight: 600;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .border-bronze {
+    border-color: var(--color-border);
+  }
+
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+
+  .bg-surface-2 {
+    background-color: var(--color-surface-2);
+  }
+
+
+  .clip-reveal-right {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .clip-reveal-bottom {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: var(--color-bg); }
+::-webkit-scrollbar-thumb  { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }

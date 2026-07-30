@@ -1,0 +1,91 @@
+---
+---
+
+<section id="hero" class="relative w-full h-screen min-h-[600px] overflow-hidden">
+
+  <!-- Background image -->
+  <div id="hero-bg" class="absolute inset-0">
+    <img
+      src="/images/FotoHeroPro.png"
+      alt="Complejo Turistico y Deportivo Altos de Quelén"
+      class="w-full h-full object-cover object-center"
+      fetchpriority="high"
+      loading="eager"
+      decoding="sync"
+    />
+    <!-- Dark gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-concrete-950/40 via-concrete-950/50 to-concrete-950/85 pointer-events-none"></div>
+    <!-- Side vignette -->
+    <div class="absolute inset-0 bg-gradient-to-r from-concrete-950/30 via-transparent to-concrete-950/30 pointer-events-none"></div>
+  </div>
+
+
+  <!-- Main content -->
+  <div class="relative z-10 h-full flex flex-col justify-end pb-20 md:pb-28">
+    <div class="container-site">
+
+
+      <!-- Title: split into word-clip spans for GSAP -->
+      <h1 class="heading-display text-concrete-50 text-balance mb-6 max-w-5xl" id="hero-title">
+        <span class="block">
+          <span class="word-clip"><span class="word-inner">Altos</span></span>
+          <span class="word-clip"><span class="word-inner">&nbsp;de</span></span>
+        </span>
+        <span class="block text-bronze-400 italic">
+          <span class="word-clip"><span class="word-inner">Quelén</span></span>
+        </span>
+      </h1>
+
+      <!-- Subtitle -->
+      <div id="hero-sub" class="opacity-0 w-full mt-4">
+        <p class="font-sans text-base md:text-lg text-concrete-300 max-w-md leading-relaxed">
+          Piscinas climatizadas abiertas de Martes a Domingo.<br class="hidden md:block" />
+          Salón de eventos y Cabañas disponibles.
+        </p>
+      </div>
+
+      <!-- Buttons (Inline on mobile, Absolute on md+) -->
+      <div id="hero-buttons" class="opacity-0 mt-8 md:mt-0 md:absolute md:bottom-24 lg:bottom-28 md:right-6 lg:right-[max(1rem,calc(50vw-720px+1rem))] z-20 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+        <a href="https://wa.me/56992671183" target="_blank" rel="noopener noreferrer" class="btn-primary whitespace-nowrap w-full sm:w-auto shadow-2xl">
+          Reservar Ahora
+        </a>
+        <a href="#portafolio" class="btn-outline whitespace-nowrap w-full sm:w-auto backdrop-blur-sm bg-concrete-950/20">
+          Ver Instalaciones
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll indicator removed -->
+
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── Hero entrance timeline ── */
+  const tl = gsap.timeline({
+    defaults: { ease: 'power4.out' },
+    delay: 0.1,
+  });
+
+  tl
+    .to('.word-inner',   { y: '0%', stagger: 0.05, duration: 0.6 })
+    .to('#hero-buttons', { opacity: 1, y: 0, duration: 0.5 }, '-=0.3');
+
+  /* ── Fade out hero content on scroll ── */
+  gsap.to('#hero .relative.z-10', {
+    opacity: 0,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start:   'center top',
+      end:     'bottom top',
+      scrub:   true,
+    },
+  });
+</script>

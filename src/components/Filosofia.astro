@@ -1,0 +1,165 @@
+---
+const pilares = [
+  {
+    numero:      '01',
+    titulo:      'Descanso Exclusivo',
+    descripcion: 'Cada espacio de nuestro complejo está pensado para tu confort. Disfruta de un ambiente donde la tranquilidad es la verdadera protagonista.',
+    icon:        'pencil-ruler',
+  },
+  {
+    numero:      '02',
+    titulo:      'Entorno Natural',
+    descripcion: 'Rodeados de vegetación autóctona y paisajes que inspiran paz. Cabañas integradas armónicamente con la naturaleza para una desconexión total.',
+    icon:        'layers',
+  },
+  {
+    numero:      '03',
+    titulo:      'Instalaciones Premium',
+    descripcion: 'Piscinas climatizadas, jacuzzis, áreas de esparcimiento y salones completamente equipados para garantizar una estadía inolvidable.',
+    icon:        'drafting-compass',
+  },
+];
+
+const stats = [
+  { valor: '15', sufijo: '+', etiqueta: 'Cabañas Equipadas' },
+  { valor: '10',  sufijo:  '', etiqueta: 'Años de Experiencia' },
+  { valor: '3',  sufijo:  '', etiqueta: 'Piscinas Climatizadas' },
+  { valor: '100', sufijo: '%', etiqueta: 'Huéspedes Felices' },
+];
+---
+
+<section id="filosofia" class="py-32 md:py-44 relative overflow-hidden">
+
+  <!-- Decorative large number -->
+  <div class="absolute -top-10 right-0 font-serif text-[18vw] font-bold text-concrete-900/30
+              leading-none select-none pointer-events-none" aria-hidden="true">
+    ADQ
+  </div>
+
+  <div class="container-site relative z-10">
+
+    <!-- Top row: asymmetric 2-col -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-start mb-24 lg:mb-36">
+
+      <!-- Left: Label + decorative number -->
+      <div class="lg:col-span-4 xl:col-span-3">
+        <p class="section-label mb-6 opacity-reveal">Nuestra Filosofía</p>
+        <div class="opacity-reveal" style="transition-delay:0.1s">
+          <p class="font-serif text-[8rem] md:text-[10rem] font-light text-bronze-500/20 leading-none
+                     select-none" aria-hidden="true">10</p>
+          <p class="font-sans text-sm text-concrete-400 -mt-4 ml-1 uppercase tracking-widest">
+            años de experiencia
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Headline + body -->
+      <div class="lg:col-span-8 xl:col-span-7 xl:col-start-5 lg:pt-12">
+        <h2 class="heading-xl text-concrete-50 mb-8 text-balance opacity-reveal">
+          Más que un destino.<br />
+          <em class="text-bronze-400 not-italic">Una experiencia de vida.</em>
+        </h2>
+
+        <div class="space-y-5 opacity-reveal" style="transition-delay:0.15s">
+          <p class="font-sans text-base md:text-lg text-concrete-300 leading-relaxed max-w-xl">
+            Altos de Quelén es un complejo turístico diseñado para ofrecer la máxima relajación y desconexión. 
+            Nuestras cabañas y espacios están pensados para brindar confort absoluto en medio de la naturaleza.
+          </p>
+          <p class="font-sans text-base text-concrete-400 leading-relaxed max-w-xl">
+            Atendido por sus propios dueños, cuidamos cada detalle, desde la limpieza impecable de tu cabaña hasta 
+            la temperatura ideal en nuestras piscinas, garantizando que tu estadía sea inigualable.
+          </p>
+        </div>
+
+        <!-- Quote / pull quote -->
+        <blockquote class="mt-12 pl-5 border-l-2 border-bronze-500/40 opacity-reveal" style="transition-delay:0.2s">
+          <p class="font-serif text-xl md:text-2xl italic text-concrete-200 leading-relaxed">
+            "La verdadera paz se encuentra en el equilibrio perfecto entre la naturaleza y el confort."
+          </p>
+          <cite class="block mt-3 font-sans text-xs uppercase tracking-widest text-bronze-500 not-italic">
+            Nuestro principal valor
+          </cite>
+        </blockquote>
+      </div>
+
+    </div>
+
+    <!-- Stats row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-bronze-500/10 mb-24 lg:mb-36 opacity-reveal rounded-3xl overflow-hidden">
+      {stats.map((s) => (
+        <div class="bg-concrete-950 px-8 py-10 text-center group hover:bg-concrete-900/60
+                    transition-colors duration-300">
+          <p class="font-serif text-5xl md:text-6xl font-light text-bronze-400 leading-none mb-2 counter"
+             data-target={s.valor}>
+            0{s.sufijo}
+          </p>
+          <p class="section-label">{s.etiqueta}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Pilares: 3 columns -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-bronze-500/10 rounded-3xl overflow-hidden">
+      {pilares.map((pilar, i) => (
+        <div class={`bg-concrete-950 p-8 md:p-10 group hover:bg-concrete-900/60
+                     transition-colors duration-500 opacity-reveal`}
+             style={`transition-delay:${i * 0.1}s`}>
+          <span class="font-serif text-4xl font-light text-bronze-500/30 leading-none mb-6 block">
+            {pilar.numero}
+          </span>
+          <h3 class="font-serif text-2xl md:text-3xl text-concrete-100 mb-4 leading-tight
+                     group-hover:text-bronze-400 transition-colors duration-300">
+            {pilar.titulo}
+          </h3>
+          <p class="font-sans text-sm text-concrete-400 leading-relaxed">
+            {pilar.descripcion}
+          </p>
+          <div class="mt-8 w-8 h-px bg-bronze-500/40 group-hover:w-16
+                      transition-all duration-500 ease-out"></div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── Generic opacity reveal ── */
+  gsap.utils.toArray<HTMLElement>('.opacity-reveal').forEach((el) => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+      }
+    );
+  });
+
+  /* ── Counter animation ── */
+  gsap.utils.toArray<HTMLElement>('.counter').forEach((el) => {
+    const target = parseInt(el.dataset.target ?? '0', 10);
+    const suffix = el.textContent?.replace(/[0-9]/g, '') ?? '';
+
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      onEnter: () => {
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 1.2,
+          ease: 'power2.out',
+          onUpdate: () => {
+            el.textContent = Math.round(obj.val) + suffix;
+          },
+        });
+      },
+      once: true,
+    });
+  });
+</script>

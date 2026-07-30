@@ -1,0 +1,136 @@
+---
+const navLinks = [
+  { label: 'Instalaciones', href: '#portafolio' },
+  { label: 'Reseñas',       href: '#testimonios' },
+  { label: 'Reservas',      href: '#cotizacion' },
+  { label: 'Ubicación',     href: '#ubicacion' },
+  { label: 'Contacto',      href: '#footer' },
+];
+---
+
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+  <div class="container-site">
+    <nav class="flex items-center justify-between h-28" aria-label="Navegación principal">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 group" aria-label="Inicio — Altos de Quelén">
+        <img src="/images/LogoQuelen.png" alt="Logo Quelen" class="h-24 w-auto object-contain scale-110 origin-left" />
+      </a>
+
+      <!-- Nav Links (desktop) -->
+      <ul class="hidden lg:flex items-center gap-10" role="list">
+        {navLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class="font-sans text-xs uppercase tracking-[0.2em] text-concrete-400
+                     transition-colors duration-300 hover:text-bronze-400 relative
+                     after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px
+                     after:bg-bronze-500 after:transition-all after:duration-300
+                     hover:after:w-full"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- CTA + Mobile toggle -->
+      <div class="flex items-center gap-4">
+        <a href="https://wa.me/56992671183?text=Hola, me gustaría obtener más información para reservar en Altos de Quelén." target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex btn-primary py-2.5 px-6 text-xs">
+          Reservar Ahora
+        </a>
+
+        <!-- Hamburger -->
+        <button
+          id="nav-toggle"
+          class="lg:hidden flex flex-col gap-1.5 p-2 group"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span class="block w-6 h-px bg-concrete-300 transition-all duration-300 group-[.open]:rotate-45 group-[.open]:translate-y-[5px]"></span>
+          <span class="block w-4 h-px bg-concrete-300 transition-all duration-300 group-[.open]:opacity-0 group-[.open]:w-0"></span>
+          <span class="block w-6 h-px bg-concrete-300 transition-all duration-300 group-[.open]:-rotate-45 group-[.open]:-translate-y-[9px]"></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden overflow-hidden max-h-0 transition-all duration-500 ease-in-out
+           border-t border-bronze-500/0 bg-concrete-950/95 backdrop-blur-xl"
+    aria-hidden="true"
+  >
+    <ul class="container-site py-6 flex flex-col gap-6" role="list">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class="nav-mobile-link font-sans text-sm uppercase tracking-[0.2em] text-concrete-300
+                   transition-colors duration-300 hover:text-bronze-400"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-2 border-t border-bronze-500/10">
+        <a href="https://wa.me/56992671183" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex text-xs w-full justify-center">
+          Reservar Ahora
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const navbar  = document.getElementById('navbar')!;
+  const toggle  = document.getElementById('nav-toggle')!;
+  const menu    = document.getElementById('mobile-menu')!;
+  let   isOpen  = false;
+
+  /* ── Scroll glass effect ── */
+  const updateNavbar = () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add(
+        'backdrop-blur-xl', 'bg-concrete-950/80',
+        'border-b', 'border-bronze-500/10', 'shadow-lg'
+      );
+    } else {
+      navbar.classList.remove(
+        'backdrop-blur-xl', 'bg-concrete-950/80',
+        'border-b', 'border-bronze-500/10', 'shadow-lg'
+      );
+    }
+  };
+
+  window.addEventListener('scroll', updateNavbar, { passive: true });
+  updateNavbar();
+
+  /* ── Mobile menu toggle ── */
+  const openMenu  = () => {
+    isOpen = true;
+    menu.style.maxHeight   = menu.scrollHeight + 'px';
+    menu.setAttribute('aria-hidden', 'false');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.classList.add('open');
+    navbar.classList.add('backdrop-blur-xl', 'bg-concrete-950/95');
+  };
+
+  const closeMenu = () => {
+    isOpen = false;
+    menu.style.maxHeight   = '0';
+    menu.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.classList.remove('open');
+  };
+
+  toggle.addEventListener('click', () => isOpen ? closeMenu() : openMenu());
+
+  /* Close on nav link click */
+  document.querySelectorAll('.nav-mobile-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>

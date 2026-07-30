@@ -1,0 +1,25 @@
+---
+import Layout       from '../layouts/Layout.astro';
+import Navbar       from '../components/Navbar.astro';
+import Hero         from '../components/Hero.astro';
+import Portfolio    from '../components/Portfolio.astro';
+import Testimonios  from '../components/Testimonios.astro';
+import Cotizacion   from '../components/Cotizacion.astro';
+import Footer       from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+---
+
+<Layout
+  title="Complejo Turistico y Deportivo Altos de Quelén"
+  description="Complejo turístico Altos de Quelen Cañete. Piscinas climatizadas abiertas de Martes a Domingo. Salón de eventos y Cabañas disponibles."
+>
+  <Navbar />
+  <main>
+    <Hero />
+    <Portfolio />
+    <Testimonios />
+    <Cotizacion />
+  </main>
+  <Footer />
+  <WhatsAppButton />
+</Layout>

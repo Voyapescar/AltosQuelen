@@ -1,0 +1,145 @@
+---
+const testimonios = [
+  {
+    cita:     'Un maravilloso lugar para descansar y desconectarse en familia, piscina temperada para estos días de invierno y el lodge full equipado, acogedor y calentito con todas las comodidades como en casa, y lo mejor total relajación con el jacuzzi.',
+    nombre:   'Macarena Gajardo',
+    fecha:    'Hace 4 semanas',
+    inicial:  'M',
+  },
+  {
+    cita:     'Lugar perfecto para el descanso!, la piscina temperada esta perfecta para disfrutar en familia, las instalaciones muy bellas, y muy buena atención, sin duda volveremos.',
+    nombre:   'Bania Gajardo',
+    fecha:    'Hace 1 mes',
+    inicial:  'B',
+  },
+  {
+    cita:     'He venido un montón de veces y la experiencia siempre muy grata, el trato muy amable y las instalaciones muy lindas, con áreas verdes y varios espacios para descansar y ahora nos contaron que contarán con cabañas, sin duda volveremos.',
+    nombre:   'Scarleth Lopez',
+    fecha:    'Hace 5 meses',
+    inicial:  'S',
+  },
+];
+---
+
+<section id="testimonios" class="py-32 md:py-44 bg-concrete-950 relative overflow-hidden">
+
+  <!-- Large decorative quote marks -->
+  <div class="absolute top-16 left-10 font-serif text-[18rem] leading-none text-bronze-500/5
+              select-none pointer-events-none" aria-hidden="true">&ldquo;</div>
+  <div class="absolute bottom-16 right-10 font-serif text-[18rem] leading-none text-bronze-500/5
+              select-none pointer-events-none rotate-180" aria-hidden="true">&ldquo;</div>
+
+  <div class="container-site relative z-10">
+
+    <!-- Header -->
+    <div class="text-center mb-20 max-w-xl mx-auto">
+      <div class="flex justify-center mb-4 opacity-reveal">
+        <!-- Google Logo SVG placeholder or simply "Reseñas de Google" -->
+        <span class="px-4 py-1.5 rounded-full border border-bronze-500/30 text-xs font-sans tracking-widest uppercase text-bronze-400 flex items-center gap-2">
+          <svg class="w-4 h-4 text-bronze-500" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Reseñas de Google
+        </span>
+      </div>
+      <h2 class="heading-xl text-concrete-50 opacity-reveal" style="transition-delay:0.1s">
+        Lo que dicen<br />
+        <em class="text-bronze-400 not-italic">quienes ya nos visitaron</em>
+      </h2>
+    </div>
+
+    <!-- Testimonios grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+      {testimonios.map((t, i) => (
+        <article
+          class="testimonio-card p-6 md:p-8 bg-concrete-900 border border-concrete-800 rounded-2xl flex flex-col opacity-reveal group hover:-translate-y-2 transition-all duration-500 shadow-xl"
+          style={`transition-delay:${i * 0.1}s`}
+        >
+          <!-- Header: User info & Date -->
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full bg-concrete-800 flex items-center justify-center text-concrete-50 font-sans font-bold text-xl border border-concrete-700 shrink-0">
+              {t.inicial}
+            </div>
+            <div>
+              <p class="font-sans font-medium text-concrete-50">{t.nombre}</p>
+              <p class="font-sans text-xs text-concrete-400 mt-0.5">{t.fecha}</p>
+            </div>
+          </div>
+
+          <!-- Stars -->
+          <div class="flex gap-1 mb-4">
+            {[...Array(5)].map(() => (
+              <svg class="w-4 h-4 text-[#FBBC05]" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))}
+          </div>
+
+          <!-- Review Text -->
+          <p class="font-sans text-concrete-300 leading-relaxed text-sm md:text-base flex-1">
+            {t.cita}
+          </p>
+
+        </article>
+      ))}
+    </div>
+
+    <!-- Social proof strip -->
+    <div class="mt-20 pt-10 border-t border-bronze-500/10 grid grid-cols-2 md:grid-cols-4 gap-8
+                text-center opacity-reveal" style="transition-delay:0.4s">
+      {[
+        { val: '4.9', label: 'Puntuación en Google',      sub: '★★★★★' },
+        { val: '100%', label: 'Desconexión Total',     sub: 'naturaleza y paz' },
+        { val: '365', label: 'Días Abiertos',  sub: 'todo el año' },
+        { val: '24/7', label: 'Atención al Huésped', sub: 'siempre disponibles' },
+      ].map(item => (
+        <div class="group">
+          <p class="font-serif text-3xl md:text-4xl text-bronze-400 font-light leading-none mb-1">
+            {item.val}
+          </p>
+          <p class="font-sans text-sm font-500 text-concrete-200 mb-1">{item.label}</p>
+          <p class="font-sans text-xs text-concrete-500">{item.sub}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray<HTMLElement>('#testimonios .opacity-reveal').forEach((el) => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+      }
+    );
+  });
+
+  /* ── Staggered card mask reveal ── */
+  gsap.utils.toArray<HTMLElement>('.testimonio-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, 
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: i * 0.05,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 90%',
+        },
+      }
+    );
+  });
+</script>
